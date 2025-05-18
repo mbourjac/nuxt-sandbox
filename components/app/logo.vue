@@ -5,6 +5,6 @@
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <circle cx="22.5" cy="22.5" r="22.5" fill="black" />
+    <circle cx="22.5" cy="22.5" r="22.5" class="fill-black dark:fill-white" />
   </svg>
 </template>

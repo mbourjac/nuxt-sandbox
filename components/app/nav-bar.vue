@@ -4,8 +4,11 @@
       <AppLogo />
       <span>Travel Map</span>
     </NuxtLink>
-    <Button as-child>
-      <NuxtLink to="/sign-in"> Sign in </NuxtLink>
-    </Button>
+    <div class="flex gap-2">
+      <AppThemeToggle />
+      <Button as-child>
+        <NuxtLink to="/"> Sign in </NuxtLink>
+      </Button>
+    </div>
   </nav>
 </template>
