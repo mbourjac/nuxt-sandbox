@@ -18,5 +18,10 @@ export const useAuthStore = defineStore('useAuthStore', () => {
     });
   };
 
-  return { signIn, user, isLoading };
+  const signOut = async () => {
+    await authClient.signOut();
+    navigateTo('/');
+  };
+
+  return { signIn, signOut, user, isLoading };
 });

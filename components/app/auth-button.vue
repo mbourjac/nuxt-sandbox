@@ -18,14 +18,35 @@ const userInitials = computed(() => {
 </script>
 
 <template>
-  <Avatar v-if="!authStore.isLoading && authStore.user">
-    <AvatarImage :src="authStore.user.image" :alt="authStore.user.name" />
-    <AvatarFallback
-      class="bg-black text-sm text-white dark:bg-white dark:text-black"
-    >
-      <span>{{ userInitials }}</span>
-    </AvatarFallback>
-  </Avatar>
+  <DropdownMenu v-if="!authStore.isLoading && authStore.user">
+    <DropdownMenuTrigger as-child>
+      <Button variant="ghost" class="size-8 cursor-pointer rounded-full">
+        <Avatar v-if="authStore.user.image">
+          <AvatarImage
+            :src="authStore.user.image"
+            :alt="authStore.user.name"
+            draggable="false"
+          />
+          <AvatarFallback
+            class="bg-black text-sm text-white dark:bg-white dark:text-black"
+          >
+            <span>{{ userInitials }}</span>
+          </AvatarFallback>
+        </Avatar>
+      </Button>
+    </DropdownMenuTrigger>
+    <DropdownMenuContent class="w-42" side="bottom" align="end">
+      <DropdownMenuLabel>My Account</DropdownMenuLabel>
+      <DropdownMenuSeparator />
+      <DropdownMenuItem
+        class="cursor-pointer justify-between"
+        @click="authStore.signOut"
+      >
+        <span>Sign out</span>
+        <Icon name="tabler:logout-2" />
+      </DropdownMenuItem>
+    </DropdownMenuContent>
+  </DropdownMenu>
   <Button
     v-else
     class="cursor-pointer"
