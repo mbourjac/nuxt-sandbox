@@ -5,6 +5,19 @@ const props = withDefaults(defineProps<SidebarProps>(), {
   variant: 'inset',
   collapsible: 'icon',
 });
+
+const navItems = [
+  {
+    label: 'Locations',
+    href: '/dashboard',
+    iconName: 'tabler:map',
+  },
+  {
+    label: 'Add location',
+    href: '/dashboard/add',
+    iconName: 'tabler:circle-plus',
+  },
+];
 </script>
 
 <template>
@@ -23,7 +36,25 @@ const props = withDefaults(defineProps<SidebarProps>(), {
         </SidebarMenuItem>
       </SidebarMenu>
     </SidebarHeader>
-    <SidebarContent></SidebarContent>
+    <SidebarContent>
+      <SidebarGroup>
+        <SidebarGroupContent>
+          <SidebarMenu>
+            <SidebarMenuItem
+              v-for="{ label, href, iconName } in navItems"
+              :key="label"
+            >
+              <SidebarMenuButton as-child :tooltip="label">
+                <NuxtLink :to="href">
+                  <Icon :name="iconName" size="16" class="shrink-0" />
+                  <span>{{ label }}</span>
+                </NuxtLink>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarGroupContent>
+      </SidebarGroup>
+    </SidebarContent>
     <SidebarFooter>
       <AppSidebarUser />
     </SidebarFooter>
