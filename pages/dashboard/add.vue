@@ -3,7 +3,6 @@ import { insertLocationSchema } from '~/lib/db/schema';
 import { toast } from 'vue-sonner';
 import { toTypedSchema } from '@vee-validate/zod';
 import { FetchError } from 'ofetch';
-import { onBeforeRouteLeave } from 'vue-router';
 
 const router = useRouter();
 const { $csrfFetch } = useNuxtApp();
@@ -38,20 +37,6 @@ const onSubmit = handleSubmit(async (values) => {
 
     toast(message);
   }
-});
-
-onBeforeRouteLeave(() => {
-  if (!isSubmitted.value && meta.value.dirty) {
-    const confirm = window.confirm(
-      'Are you sure you want to leave? All unsaved changes will be lost.'
-    );
-
-    if (!confirm) {
-      return false;
-    }
-  }
-
-  return true;
 });
 </script>
 
@@ -90,5 +75,12 @@ onBeforeRouteLeave(() => {
         </Button>
       </div>
     </form>
+    <AppConfirmDialog
+      :needs-confim="!isSubmitted && meta.dirty"
+      title="Unsaved Changes"
+      description="You have unsaved changes. Are you sure you want to leave?"
+      cancel-label="Stay"
+      confirm-label="Leave"
+    />
   </div>
 </template>
