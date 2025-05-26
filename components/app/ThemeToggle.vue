@@ -20,11 +20,7 @@ const toggleTheme = () => {
 </script>
 
 <template>
-  <Button
-    class="size-9 cursor-pointer p-0"
-    variant="ghost"
-    @click="toggleTheme"
-  >
+  <Button class="size-9 p-0" variant="ghost" @click="toggleTheme">
     <span class="sr-only">{{ label }}</span>
     <Icon v-if="isDark" name="tabler:sun" size="20" />
     <Icon v-else name="tabler:moon" size="16" />

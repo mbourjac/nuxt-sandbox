@@ -71,16 +71,11 @@ onBeforeRouteLeave(() => {
       <AppFormField name="lat" label="Latitude" type="number" />
       <AppFormField name="long" label="Longitude" type="number" />
       <div class="flex justify-end gap-2">
-        <Button
-          class="cursor-pointer"
-          type="button"
-          variant="outline"
-          @click="router.back()"
-        >
+        <Button type="button" variant="outline" @click="router.back()">
           <span>Cancel</span>
           <Icon name="tabler:circle-x" />
         </Button>
-        <Button class="cursor-pointer" type="submit">
+        <Button type="submit">
           <span>Add</span>
           <Icon
             v-if="isSubmitting"
