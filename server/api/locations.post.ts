@@ -1,3 +1,4 @@
+import slug from 'slug';
 import { db } from '../../lib/db';
 import { insertLocationSchema, location } from '../../lib/db/schema';
 
@@ -38,7 +39,7 @@ export default defineEventHandler(async (event) => {
       .insert(location)
       .values({
         ...result.data,
-        slug: result.data.name.replaceAll(' ', '-').toLowerCase(),
+        slug: slug(result.data.name),
         userId: event.context.user.id,
       })
       .returning();
