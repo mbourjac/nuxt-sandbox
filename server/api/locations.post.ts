@@ -1,6 +1,10 @@
 import slug from 'slug';
 import { db } from '../../lib/db';
 import { insertLocationSchema, location } from '../../lib/db/schema';
+import { and, eq } from 'drizzle-orm';
+import { customAlphabet } from 'nanoid';
+
+const nanoid = customAlphabet('123456789abcdefghijklmnopqrstuvwxyz', 5);
 
 export default defineEventHandler(async (event) => {
   if (!event.context.user) {
@@ -34,12 +38,46 @@ export default defineEventHandler(async (event) => {
     );
   }
 
+  const existingLocation = await db.query.location.findFirst({
+    where: and(
+      eq(location.name, result.data.name),
+      eq(location.userId, event.context.user.id)
+    ),
+  });
+
+  if (existingLocation) {
+    return sendError(
+      event,
+      createError({
+        statusCode: 409,
+        statusMessage: 'A location with that name already exists.',
+      })
+    );
+  }
+
+  let locationSlug = slug(result.data.name);
+  let existing = !!(await db.query.location.findFirst({
+    where: eq(location.slug, locationSlug),
+  }));
+
+  while (existing) {
+    const locationSlugWithNanoid = `${locationSlug}-${nanoid()}`;
+
+    existing = !!(await db.query.location.findFirst({
+      where: eq(location.slug, locationSlugWithNanoid),
+    }));
+
+    if (!existing) {
+      locationSlug = locationSlugWithNanoid;
+    }
+  }
+
   try {
     const [created] = await db
       .insert(location)
       .values({
         ...result.data,
-        slug: slug(result.data.name),
+        slug: locationSlug,
         userId: event.context.user.id,
       })
       .returning();
