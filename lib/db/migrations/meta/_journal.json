@@ -15,6 +15,13 @@
       "when": 1747579456124,
       "tag": "0001_watery_orphan",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1748370739659,
+      "tag": "0002_pretty_ravenous",
+      "breakpoints": true
     }
   ]
 }
