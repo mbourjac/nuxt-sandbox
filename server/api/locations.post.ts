@@ -5,18 +5,9 @@ import {
   insertLocation,
 } from '../../lib/db/queries/location';
 import slug from 'slug';
+import defineAuthenticatedEventHandler from '../../utils/define-authenticated-event-handler';
 
-export default defineEventHandler(async (event) => {
-  if (!event.context.user) {
-    return sendError(
-      event,
-      createError({
-        statusCode: 401,
-        statusMessage: 'Unauthorized',
-      })
-    );
-  }
-
+export default defineAuthenticatedEventHandler(async (event) => {
   const result = await readValidatedBody(event, insertLocationSchema.safeParse);
 
   if (!result.success) {
