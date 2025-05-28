@@ -3,6 +3,7 @@ import { insertLocationSchema } from '~/lib/db/schema';
 import { toast } from 'vue-sonner';
 import { toTypedSchema } from '@vee-validate/zod';
 import { FetchError } from 'ofetch';
+import { useRouter } from 'vue-router';
 
 const router = useRouter();
 const { $csrfFetch } = useNuxtApp();
@@ -32,7 +33,7 @@ const onSubmit = handleSubmit(async (values) => {
         setErrors(errorData);
       }
 
-      message = error.statusMessage ?? message;
+      message = (error.data?.statusMessage || error.statusMessage) ?? message;
     }
 
     toast(message);
