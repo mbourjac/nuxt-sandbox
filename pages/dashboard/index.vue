@@ -1,10 +1,43 @@
+<script lang="ts" setup>
+const { data: locations, status } = await useFetch('/api/locations', {
+  lazy: true,
+});
+</script>
+
 <template>
-  <div class="flex flex-1 flex-col gap-4 p-4 pt-0">
-    <div class="grid auto-rows-min gap-4 md:grid-cols-3">
-      <div class="bg-muted/50 aspect-video rounded-xl" />
-      <div class="bg-muted/50 aspect-video rounded-xl" />
-      <div class="bg-muted/50 aspect-video rounded-xl" />
+  <div class="flex flex-col gap-8">
+    <div class="flex flex-col gap-4">
+      <h1 class="text-xl font-medium">Locations</h1>
+      <div v-if="status === 'pending'" class="flex flex-wrap gap-2">
+        <Card
+          v-for="index in 4"
+          :key="index"
+          class="h-[92px] w-[240px] animate-pulse border-none bg-gray-100 dark:bg-[#121212]"
+        ></Card>
+      </div>
+      <div
+        v-else-if="locations && locations.length > 0"
+        class="flex flex-wrap gap-2"
+      >
+        <Card
+          v-for="{ id, name, description } in locations"
+          :key="id"
+          class="h-[92px] w-[240px]"
+        >
+          <CardHeader>
+            <CardTitle class="truncate">{{ name }}</CardTitle>
+            <CardDescription class="truncate">{{
+              description
+            }}</CardDescription>
+          </CardHeader>
+        </Card>
+      </div>
+      <template v-else>
+        <p class="text-sm">Add a location to get started.</p>
+        <Button as-child class="w-fit">
+          <NuxtLink to="/dashboard/add">Add location</NuxtLink>
+        </Button>
+      </template>
     </div>
-    <div class="bg-muted/50 min-h-[100vh] flex-1 rounded-xl md:min-h-min" />
   </div>
 </template>

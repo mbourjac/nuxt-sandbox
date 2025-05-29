@@ -2,8 +2,15 @@ import { and, eq } from 'drizzle-orm';
 import { db } from '..';
 import { type InsertLocation, location } from '../schema';
 import { customAlphabet } from 'nanoid';
+import type { User } from '../../auth';
 
 const nanoid = customAlphabet('123456789abcdefghijklmnopqrstuvwxyz', 5);
+
+export const findLocations = (userId: User['id']) => {
+  return db.query.location.findMany({
+    where: eq(location.userId, userId),
+  });
+};
 
 export const findLocationByName = async (
   existingLocation: InsertLocation,
