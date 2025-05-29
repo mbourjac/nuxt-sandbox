@@ -54,6 +54,7 @@ const navItems = [
           </SidebarMenu>
         </SidebarGroupContent>
       </SidebarGroup>
+      <AppSidebarLocations />
     </SidebarContent>
     <SidebarFooter>
       <AppSidebarUser />

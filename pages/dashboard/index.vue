@@ -1,6 +1,9 @@
 <script lang="ts" setup>
-const { data: locations, status } = await useFetch('/api/locations', {
-  lazy: true,
+const locationStore = useLocationStore();
+const { locations, status } = storeToRefs(locationStore);
+
+onMounted(() => {
+  locationStore.refresh();
 });
 </script>
 
@@ -12,7 +15,7 @@ const { data: locations, status } = await useFetch('/api/locations', {
         <Card
           v-for="index in 4"
           :key="index"
-          class="h-[92px] w-[240px] animate-pulse border-none bg-gray-100 dark:bg-[#121212]"
+          class="bg-primary/10 h-[92px] w-[240px] animate-pulse border-none"
         ></Card>
       </div>
       <div

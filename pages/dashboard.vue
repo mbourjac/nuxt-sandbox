@@ -2,6 +2,15 @@
 definePageMeta({
   layout: 'dashboard',
 });
+
+const route = useRoute();
+const locationStore = useLocationStore();
+
+onMounted(() => {
+  if (route.path !== '/dashboard') {
+    locationStore.refresh();
+  }
+});
 </script>
 
 <template>
