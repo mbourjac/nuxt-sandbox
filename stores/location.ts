@@ -1,3 +1,5 @@
+import { useMapStore } from './map';
+
 export const useLocationStore = defineStore('useLocationStore', () => {
   const {
     data: locations,
@@ -9,6 +11,7 @@ export const useLocationStore = defineStore('useLocationStore', () => {
   });
 
   const sidebarStore = useSidebarStore();
+  const mapStore = useMapStore();
 
   watchEffect(() => {
     if (locations.value) {
@@ -16,6 +19,15 @@ export const useLocationStore = defineStore('useLocationStore', () => {
         id: `location-${id}`,
         label: name,
         href: '#',
+      }));
+
+      mapStore.mapPoints = locations.value.map(({ id, name, lat, long }) => ({
+        id,
+        label: name,
+        coordinates: {
+          longitude: long,
+          latitude: lat,
+        },
       }));
     }
 
