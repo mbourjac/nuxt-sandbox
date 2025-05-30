@@ -11,16 +11,22 @@ const zoom = 1;
     <MglMap :map-style="style" :center="center" :zoom="zoom">
       <MglNavigationControl />
       <MglMarker
-        v-for="{ id, coordinates } in mapStore.mapPoints"
+        v-for="{ id, label, coordinates } in mapStore.mapPoints"
         :key="id"
         :coordinates="[coordinates.longitude, coordinates.latitude]"
       >
         <template #marker>
-          <Icon
-            name="tabler:map-pin-filled"
-            size="24"
-            class="dark:text-black"
-          />
+          <Tooltip>
+            <TooltipTrigger>
+              <Icon
+                name="tabler:map-pin-filled"
+                size="24"
+                class="dark:text-black"
+            /></TooltipTrigger>
+            <TooltipContent>
+              <p>{{ label }}</p>
+            </TooltipContent>
+          </Tooltip>
         </template>
       </MglMarker>
     </MglMap>
