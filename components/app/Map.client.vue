@@ -3,7 +3,11 @@ const mapStore = useMapStore();
 
 const style = 'https://tiles.openfreemap.org/styles/positron';
 const center: [number, number] = [2.333333, 48.866667];
-const zoom = 1;
+const zoom = 3;
+
+onMounted(() => {
+  mapStore.init();
+});
 </script>
 
 <template>
