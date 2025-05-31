@@ -14,7 +14,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="flex w-full flex-col gap-4 p-4 pt-0">
+  <div class="flex w-full flex-col gap-1 p-4 pt-0">
     <NuxtPage />
     <AppMap />
   </div>
