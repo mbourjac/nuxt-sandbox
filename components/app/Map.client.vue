@@ -11,7 +11,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="h-full overflow-hidden rounded-2xl">
+  <div class="size-full overflow-hidden rounded-2xl">
     <MglMap :map-style="style" :center="center" :zoom="zoom">
       <MglNavigationControl />
       <MglMarker
