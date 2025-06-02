@@ -15,20 +15,12 @@ export const useLocationStore = defineStore('useLocationStore', () => {
 
   watchEffect(() => {
     if (locations.value) {
-      sidebarStore.sidebarItems = locations.value.map(({ id, name }) => ({
-        id: `location-${id}`,
-        label: name,
+      sidebarStore.sidebarItems = locations.value.map((location) => ({
+        location,
         href: '#',
       }));
 
-      mapStore.mapPoints = locations.value.map(({ id, name, lat, long }) => ({
-        id,
-        label: name,
-        coordinates: {
-          longitude: long,
-          latitude: lat,
-        },
-      }));
+      mapStore.mapPoints = locations.value;
     }
 
     sidebarStore.isLoading = status.value === 'pending';

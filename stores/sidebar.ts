@@ -1,6 +1,7 @@
+import type { MapPoint } from './map';
+
 export type SidebarItem = {
-  id: string;
-  label: string;
+  location: MapPoint;
   href: string;
 };
 

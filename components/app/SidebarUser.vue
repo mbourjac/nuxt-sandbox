@@ -34,6 +34,7 @@ const { isMobile } = useSidebar();
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <!-- TODO: add theme toggle -->
+          <!-- TODO: add map animation toggle -->
           <DropdownMenuItem
             class="flex cursor-pointer justify-between"
             @click="authStore.signOut"

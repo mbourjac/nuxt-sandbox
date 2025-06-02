@@ -8,6 +8,7 @@ import {
 } from '@/components/ui/sidebar';
 
 const sidebarStore = useSidebarStore();
+const mapStore = useMapStore();
 </script>
 
 <template>
@@ -28,13 +29,15 @@ const sidebarStore = useSidebarStore();
           "
         >
           <SidebarMenuItem
-            v-for="{ id, label, href } in sidebarStore.sidebarItems"
-            :key="id"
+            v-for="{ location, href } in sidebarStore.sidebarItems"
+            :key="location.id"
+            @mouseenter="mapStore.selectedPoint = location"
+            @mouseleave="mapStore.selectedPoint = null"
           >
             <SidebarMenuButton as-child>
               <NuxtLink :href="href">
                 <Icon name="tabler:map-pin-filled" />
-                <span>{{ label }}</span>
+                <span>{{ location.name }}</span>
               </NuxtLink>
             </SidebarMenuButton>
           </SidebarMenuItem>

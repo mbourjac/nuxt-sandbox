@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { useSidebar } from '~/components/ui/sidebar';
 
+const mapStore = useMapStore();
 const locationStore = useLocationStore();
 const { locations, status } = storeToRefs(locationStore);
 const { state, isMobile } = useSidebar();
@@ -29,14 +30,22 @@ onMounted(() => {
         }"
       >
         <Card
-          v-for="{ id, name, description } in locations"
-          :key="id"
-          class="h-[92px] w-[240px] shrink-0"
+          v-for="location in locations"
+          :key="location.id"
+          :class="[
+            'h-[92px] w-[240px] shrink-0 transition-all duration-300 hover:cursor-pointer',
+            {
+              'border-black/40 dark:border-white/40':
+                location.id === mapStore.selectedPoint?.id,
+            },
+          ]"
+          @mouseenter="mapStore.selectedPoint = location"
+          @mouseleave="mapStore.selectedPoint = null"
         >
           <CardHeader>
-            <CardTitle class="truncate">{{ name }}</CardTitle>
+            <CardTitle class="truncate">{{ location.name }}</CardTitle>
             <CardDescription class="truncate">{{
-              description
+              location.description
             }}</CardDescription>
           </CardHeader>
         </Card>

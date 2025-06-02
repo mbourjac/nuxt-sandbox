@@ -15,9 +15,9 @@ onMounted(() => {
     <MglMap :map-style="style" :center="center" :zoom="zoom">
       <MglNavigationControl />
       <MglMarker
-        v-for="{ id, label, coordinates } in mapStore.mapPoints"
+        v-for="{ id, name, long, lat } in mapStore.mapPoints"
         :key="id"
-        :coordinates="[coordinates.longitude, coordinates.latitude]"
+        :coordinates="[long, lat]"
       >
         <template #marker>
           <Tooltip>
@@ -28,7 +28,7 @@ onMounted(() => {
                 class="dark:text-black"
             /></TooltipTrigger>
             <TooltipContent>
-              <p>{{ label }}</p>
+              <p>{{ name }}</p>
             </TooltipContent>
           </Tooltip>
         </template>
